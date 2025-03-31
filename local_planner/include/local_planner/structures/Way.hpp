@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <visualization_msgs/msg/marker_array.hpp>
+#include <mmr_base/msg/marker_array.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/rclcpp.hpp>
 

@@ -4,12 +4,12 @@ local_planner:
         node/eventType: "autocross"  # Possible values: "acceleration" "autocross" "skidpad"
         # THESE ARE I/O TOPICS, THEY ARE MEANT TO USE EFFICIENT MESSAGE TYPES
         node/topicBorders: "planning/borders" # not used by autocross
-        node/topicCenterLine: "planning/center_line_delunay"
+        node/topicCenterLine: "planning/center_line"
         node/topicBordersCompleted: "planning/borders_completed" # not used by autocross
-        node/topicCenterLineCompleted: "planning/center_line_completed_delunay"
+        node/topicCenterLineCompleted: "planning/center_line_completed"
         node/topicRaceStatus: "planning/race_status"
         node/topicOdometry: "Odometry"
-        node/topicSlamCones: "test/slam/cones_positions"
+        node/topicSlamCones: "slam/cones_positions"
 
         # ACCELERATION PARAMETERS
         acceleration/lineWidth: 0.1

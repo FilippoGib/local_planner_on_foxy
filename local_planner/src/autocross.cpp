@@ -8,8 +8,8 @@
 /// @param centerLinePub centerline publisher
 /// @param centerLineCompletedPub complete centerline publisher
 AutocrossPlanner::AutocrossPlanner(const rclcpp::Node::SharedPtr &nh,
-								   const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr &centerLinePub,
-								   const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr &centerLineCompletedPub)
+								   const rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr &centerLinePub,
+								   const rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr &centerLineCompletedPub)
 {
 	this->nh = nh;
 
@@ -28,13 +28,13 @@ AutocrossPlanner::AutocrossPlanner(const rclcpp::Node::SharedPtr &nh,
 
 /// @brief callback to get the race status from the subscription
 /// @param raceStatus custom message
-void AutocrossPlanner::raceStatusCallBack(common_msgs::msg::RaceStatus::SharedPtr raceStatus)
+void AutocrossPlanner::raceStatusCallBack(mmr_base::msg::RaceStatus::SharedPtr raceStatus)
 {
 
 	this->currentLap = raceStatus->current_lap;
 }
 
-void AutocrossPlanner::slamConesCallback(visualization_msgs::msg::Marker::SharedPtr slamCones)
+void AutocrossPlanner::slamConesCallback(mmr_base::msg::Marker::SharedPtr slamCones)
 {
 	RCLCPP_INFO(rclcpp::get_logger(""), "[local_planner] slamConesCallback");
 

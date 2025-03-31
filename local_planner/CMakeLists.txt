@@ -15,8 +15,7 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
-find_package(common_msgs REQUIRED)
-find_package(visualization_msgs REQUIRED)
+find_package(mmr_base REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(tf2_eigen REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -37,9 +36,8 @@ add_library(acceleration src/acceleration.cpp)
 ament_target_dependencies(acceleration
   rclcpp
   geometry_msgs
-  common_msgs
   nav_msgs
-  visualization_msgs
+  mmr_base
 )
 
 #---------------------------------------------------------
@@ -69,8 +67,7 @@ ament_target_dependencies(autocross
   rclcpp
   geometry_msgs
   nav_msgs
-  visualization_msgs
-  common_msgs
+  mmr_base
 )
 
 target_link_libraries(autocross
@@ -87,9 +84,8 @@ add_library(skidpad src/skidpad.cpp)
 ament_target_dependencies(skidpad
   rclcpp
   geometry_msgs
-  common_msgs
+  mmr_base
   nav_msgs
-  visualization_msgs
 )
 
 #---------------------------------------------------------
@@ -110,8 +106,7 @@ ament_target_dependencies(${PROJECT_NAME}_node
   rclcpp
   geometry_msgs
   nav_msgs
-  common_msgs
-  visualization_msgs
+  mmr_base
   rmw
 )
 

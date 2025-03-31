@@ -58,10 +58,10 @@ void LocalPlannerNode::initialization()
 	// qos.liveliness(RMW_QOS_POLICY_LIVELINESS_AUTOMATIC);
 	// qos.liveliness_lease_duration(rclcpp::Duration::from_seconds(1e9));
 
-	this->bordersPub = this->create_publisher<visualization_msgs::msg::MarkerArray>(this->param_topicBorders, 1);
-	this->centerLinePub = this->create_publisher<visualization_msgs::msg::Marker>(this->param_topicCenterLine, 1);
-	this->bordersCompletedPub = this->create_publisher<visualization_msgs::msg::MarkerArray>(this->param_topicBordersCompleted, 1);
-	this->centerLineCompletedPub = this->create_publisher<visualization_msgs::msg::Marker>(this->param_topicCenterLineCompleted, qos);
+	this->bordersPub = this->create_publisher<mmr_base::msg::MarkerArray>(this->param_topicBorders, 1);
+	this->centerLinePub = this->create_publisher<mmr_base::msg::Marker>(this->param_topicCenterLine, 1);
+	this->bordersCompletedPub = this->create_publisher<mmr_base::msg::MarkerArray>(this->param_topicBordersCompleted, 1);
+	this->centerLineCompletedPub = this->create_publisher<mmr_base::msg::Marker>(this->param_topicCenterLineCompleted, qos);
 
 	if (this->param_eventType == "acceleration")
 	{
@@ -70,7 +70,7 @@ void LocalPlannerNode::initialization()
 		this->accelerationPlanner = std::make_shared<AccelerationPlanner>(shared_from_this(), this->bordersPub, this->centerLinePub);
 
 		this->odometrySub = this->create_subscription<nav_msgs::msg::Odometry>(this->param_topicOdometry, 1, std::bind(&AccelerationPlanner::odometryCallback, this->accelerationPlanner, std::placeholders::_1));
-		this->slamConesSub = this->create_subscription<visualization_msgs::msg::Marker>(this->param_topicSlamCones, 1, std::bind(&AccelerationPlanner::slamConesCallback, this->accelerationPlanner, std::placeholders::_1));
+		this->slamConesSub = this->create_subscription<mmr_base::msg::Marker>(this->param_topicSlamCones, 1, std::bind(&AccelerationPlanner::slamConesCallback, this->accelerationPlanner, std::placeholders::_1));
 	}
 	else if (this->param_eventType == "autocross")
 	{
@@ -78,9 +78,9 @@ void LocalPlannerNode::initialization()
 
 		this->autocrossPlanner = std::make_shared<AutocrossPlanner>(shared_from_this(), this->centerLinePub, this->centerLineCompletedPub);
 
-		this->raceStatusSub = this->create_subscription<common_msgs::msg::RaceStatus>(this->param_topicRaceStatus, 1, std::bind(&AutocrossPlanner::raceStatusCallBack, this->autocrossPlanner, std::placeholders::_1));
+		this->raceStatusSub = this->create_subscription<mmr_base::msg::RaceStatus>(this->param_topicRaceStatus, 1, std::bind(&AutocrossPlanner::raceStatusCallBack, this->autocrossPlanner, std::placeholders::_1));
 		this->odometrySub = this->create_subscription<nav_msgs::msg::Odometry>(this->param_topicOdometry, 1, std::bind(&WayComputer::stateCallback, this->autocrossPlanner->wayComputer, std::placeholders::_1));
-		this->slamConesSub = this->create_subscription<visualization_msgs::msg::Marker>(this->param_topicSlamCones, 1, std::bind(&AutocrossPlanner::slamConesCallback, this->autocrossPlanner, std::placeholders::_1));
+		this->slamConesSub = this->create_subscription<mmr_base::msg::Marker>(this->param_topicSlamCones, 1, std::bind(&AutocrossPlanner::slamConesCallback, this->autocrossPlanner, std::placeholders::_1));
 	}
 	else if (this->param_eventType == "skidpad")
 	{
@@ -88,9 +88,9 @@ void LocalPlannerNode::initialization()
 
 		this->skidpadPlanner = std::make_shared<SkidpadPlanner>(shared_from_this(), this->bordersPub, this->centerLinePub);
 
-		this->raceStatusSub = this->create_subscription<common_msgs::msg::RaceStatus>(this->param_topicRaceStatus, 1, std::bind(&SkidpadPlanner::raceStatusCallBack, this->skidpadPlanner, std::placeholders::_1));
+		this->raceStatusSub = this->create_subscription<mmr_base::msg::RaceStatus>(this->param_topicRaceStatus, 1, std::bind(&SkidpadPlanner::raceStatusCallBack, this->skidpadPlanner, std::placeholders::_1));
 		this->odometrySub = this->create_subscription<nav_msgs::msg::Odometry>(this->param_topicOdometry, 1, std::bind(&SkidpadPlanner::odometryCallback, this->skidpadPlanner, std::placeholders::_1));
-		this->slamConesSub = this->create_subscription<visualization_msgs::msg::Marker>(this->param_topicSlamCones, 1, std::bind(&SkidpadPlanner::slamConesCallback, this->skidpadPlanner, std::placeholders::_1));
+		this->slamConesSub = this->create_subscription<mmr_base::msg::Marker>(this->param_topicSlamCones, 1, std::bind(&SkidpadPlanner::slamConesCallback, this->skidpadPlanner, std::placeholders::_1));
 	}
 	else
 	{

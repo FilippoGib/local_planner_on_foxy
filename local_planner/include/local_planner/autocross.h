@@ -5,8 +5,8 @@
 #include <geometry_msgs/msg/point.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <nav_msgs/msg/path.hpp>
-#include <visualization_msgs/msg/marker_array.hpp>
-#include "common_msgs/msg/race_status.hpp"
+#include <mmr_base/msg/marker_array.hpp>
+#include "mmr_base/msg/race_status.hpp"
 #include "utils/Params.hpp"
 #include "modules/WayComputer.hpp"
 #include "modules/Visualization.hpp"
@@ -20,22 +20,22 @@ class AutocrossPlanner
 {
 	public:
 		AutocrossPlanner(const rclcpp::Node::SharedPtr &nh,
-						 const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr &centerLinePub,
-						 const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr &centerLineCompletedPub);
+						 const rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr &centerLinePub,
+						 const rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr &centerLineCompletedPub);
 
-		void raceStatusCallBack(common_msgs::msg::RaceStatus::SharedPtr raceStatus);
+		void raceStatusCallBack(mmr_base::msg::RaceStatus::SharedPtr raceStatus);
 
 		void odometryCallback(nav_msgs::msg::Odometry::SharedPtr odometry);
 
-		void slamConesCallback(visualization_msgs::msg::Marker::SharedPtr slamCones);
+		void slamConesCallback(mmr_base::msg::Marker::SharedPtr slamCones);
 		
 		Params *params;
 		WayComputer *wayComputer;
 
 	private:
 		rclcpp::Node::SharedPtr nh;
-		rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr centerLinePub;
-		rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr centerLineCompletedPub;
+		rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr centerLinePub;
+		rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr centerLineCompletedPub;
 
 		int currentLap;
 		bool idle = false; //when true the node is idle and only publishes centerline_completed in a transient local fashion 

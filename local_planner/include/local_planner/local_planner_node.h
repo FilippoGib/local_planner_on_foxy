@@ -23,14 +23,14 @@ class LocalPlannerNode : public rclcpp::Node
 	private:
 		rclcpp::TimerBase::SharedPtr timer;
 
-		rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr  bordersPub;
-		rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr  centerLinePub;
-		rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr  bordersCompletedPub;
-		rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr  centerLineCompletedPub;
+		rclcpp::Publisher<mmr_base::msg::MarkerArray>::SharedPtr  bordersPub;
+		rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr  centerLinePub;
+		rclcpp::Publisher<mmr_base::msg::MarkerArray>::SharedPtr  bordersCompletedPub;
+		rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr  centerLineCompletedPub;
 
-		rclcpp::Subscription<common_msgs::msg::RaceStatus>::SharedPtr raceStatusSub;
+		rclcpp::Subscription<mmr_base::msg::RaceStatus>::SharedPtr raceStatusSub;
     	rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odometrySub;
-		rclcpp::Subscription<visualization_msgs::msg::Marker>::SharedPtr slamConesSub;
+		rclcpp::Subscription<mmr_base::msg::Marker>::SharedPtr slamConesSub;
 
 		std::shared_ptr<AccelerationPlanner> accelerationPlanner;
 		std::shared_ptr<AutocrossPlanner> autocrossPlanner;

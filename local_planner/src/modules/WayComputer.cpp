@@ -392,8 +392,8 @@ Tracklimits WayComputer::getTracklimits() const {
   return this->wayToPublish_.getTracklimits();
 }
 
-visualization_msgs::msg::Marker WayComputer::getPathCenterLine() const {
-  visualization_msgs::msg::Marker marker;
+mmr_base::msg::Marker WayComputer::getPathCenterLine() const {
+  mmr_base::msg::Marker marker;
 
   // Get the centerline path as a vector of Points.
   std::vector<Point> path = this->wayToPublish_.getPath();
@@ -403,8 +403,8 @@ visualization_msgs::msg::Marker WayComputer::getPathCenterLine() const {
   marker.header.stamp = this->lastStamp_;
   marker.ns = "path_center_line";
   marker.id = 0;
-  marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
-  marker.action = visualization_msgs::msg::Marker::ADD;
+  marker.type = mmr_base::msg::Marker::LINE_STRIP;
+  marker.action = mmr_base::msg::Marker::ADD;
 
   // For a LINE_STRIP marker, only scale.x is used (as the width of the line).
   marker.scale.x = 0.3;
@@ -433,9 +433,9 @@ visualization_msgs::msg::Marker WayComputer::getPathCenterLine() const {
 }
 
 
-visualization_msgs::msg::MarkerArray WayComputer::getPathBorderLeft() const {
+mmr_base::msg::MarkerArray WayComputer::getPathBorderLeft() const {
 
-  visualization_msgs::msg::MarkerArray res;
+  mmr_base::msg::MarkerArray res;
   
   // Fill Tracklimits
   Tracklimits tracklimits = this->wayToPublish_.getTracklimits();
@@ -451,9 +451,9 @@ visualization_msgs::msg::MarkerArray WayComputer::getPathBorderLeft() const {
   // res.tracklimits.replan = this->way_.quinEhLobjetiuDeLaSevaDiresio(this->lastWay_);
  return res;
 }
-visualization_msgs::msg::MarkerArray WayComputer::getPathBorderRight() const {
+mmr_base::msg::MarkerArray WayComputer::getPathBorderRight() const {
 
-  visualization_msgs::msg::MarkerArray res;
+  mmr_base::msg::MarkerArray res;
   
   // Fill Tracklimits
   Tracklimits tracklimits = this->wayToPublish_.getTracklimits();

@@ -5,8 +5,8 @@
 /// @param bordersPub borders publisher
 /// @param centerLinePub centerline publisher
 AccelerationPlanner::AccelerationPlanner(rclcpp::Node::SharedPtr nh,
-										 rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr bordersPub,
-										 rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr centerLinePub)
+										 rclcpp::Publisher<mmr_base::msg::MarkerArray>::SharedPtr bordersPub,
+										 rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr centerLinePub)
 {
 	this->nh = nh;
 
@@ -33,7 +33,7 @@ void AccelerationPlanner::odometryCallback(nav_msgs::msg::Odometry::SharedPtr od
 
 /// @brief callback to get cones from subscription
 /// @param slamCones cones from odometry  (x,y,z,red,green,blue)
-void AccelerationPlanner::slamConesCallback(visualization_msgs::msg::Marker::SharedPtr slamCones)
+void AccelerationPlanner::slamConesCallback(mmr_base::msg::Marker::SharedPtr slamCones)
 {
 	std::vector<geometry_msgs::msg::Point> slamConesL;
 	std::vector<geometry_msgs::msg::Point> slamConesR;
@@ -125,13 +125,13 @@ std::vector<geometry_msgs::msg::Point> AccelerationPlanner::generateBorder(const
 													   const bool &borderType,
 													   const double &horizon)
 {
-	visualization_msgs::msg::Marker border;
+	mmr_base::msg::Marker border;
 	border.id = borderType;
 	border.ns = "border";
 	border.header.frame_id = "track";
 	border.header.stamp = this->nh->get_clock()->now();
-	border.type = visualization_msgs::msg::Marker::LINE_STRIP;
-	border.action = visualization_msgs::msg::Marker::ADD;
+	border.type = mmr_base::msg::Marker::LINE_STRIP;
+	border.action = mmr_base::msg::Marker::ADD;
 	border.scale.x = 0.1;
 	border.scale.y = 0.1;
 	border.scale.z = 0.1;
@@ -214,13 +214,13 @@ std::vector<geometry_msgs::msg::Point> AccelerationPlanner::generateBorder(const
 void AccelerationPlanner::generateCenterLine(const std::vector<geometry_msgs::msg::Point> &borderL,
 											 const std::vector<geometry_msgs::msg::Point> &borderR)
 {
-	visualization_msgs::msg::Marker centerLine;
+	mmr_base::msg::Marker centerLine;
 	centerLine.id = 0;
 	centerLine.ns = "centerLine";
 	centerLine.header.frame_id = "track";
 	centerLine.header.stamp = this->nh->get_clock()->now();
-	centerLine.type = visualization_msgs::msg::Marker::LINE_STRIP;
-	centerLine.action = visualization_msgs::msg::Marker::ADD;
+	centerLine.type = mmr_base::msg::Marker::LINE_STRIP;
+	centerLine.action = mmr_base::msg::Marker::ADD;
 	centerLine.scale.x = 0.1;
 	centerLine.scale.y = 0.1;
 	centerLine.scale.z = 0.1;

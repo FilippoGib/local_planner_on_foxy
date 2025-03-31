@@ -11,10 +11,10 @@
 #pragma once
 
 #include <nav_msgs/msg/odometry.hpp>
-#include <visualization_msgs/msg/marker_array.hpp>
-#include <visualization_msgs/msg/marker.hpp>
-// #include <visualization_msgs/msg/path_limits.hpp>
-// #include <visualization_msgs/msg/tracklimits.hpp>
+#include <mmr_base/msg/marker_array.hpp>
+#include <mmr_base/msg/marker.hpp>
+// #include <mmr_base/msg/path_limits.hpp>
+// #include <mmr_base/msg/tracklimits.hpp>
 /*#include <as_msgs/CarState.h>
 #include <as_msgs/Tracklimits.h>*/
 #include <tf2_eigen/tf2_eigen.h>
@@ -233,15 +233,15 @@ class WayComputer {
    * @brief Returns the centerline and track limits in Marker Array format
    * in global coordinates.
    */
-  visualization_msgs::msg::Marker getPathCenterLine() const;
+  mmr_base::msg::Marker getPathCenterLine() const;
   /**
    * @brief Returns the centerline and track limits in Marker Array format
    * in global coordinates.
    */
-  visualization_msgs::msg::MarkerArray getPathBorderLeft() const;
+  mmr_base::msg::MarkerArray getPathBorderLeft() const;
   /**
    * @brief Returns the centerline and track limits in Marker Array format
    * in global coordinates.
    */
-  visualization_msgs::msg::MarkerArray getPathBorderRight() const;
+  mmr_base::msg::MarkerArray getPathBorderRight() const;
 };

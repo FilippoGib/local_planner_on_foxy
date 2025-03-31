@@ -5,8 +5,8 @@
 /// @param bordersPub borders publisher
 /// @param centerLinePub centerline publisher
 SkidpadPlanner::SkidpadPlanner(const rclcpp::Node::SharedPtr &nh,
-                               const rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr &bordersPub,
-                               const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr &centerLinePub)
+                               const rclcpp::Publisher<mmr_base::msg::MarkerArray>::SharedPtr &bordersPub,
+                               const rclcpp::Publisher<mmr_base::msg::Marker>::SharedPtr &centerLinePub)
 {
     this->nh = nh;
 
@@ -75,7 +75,7 @@ void SkidpadPlanner::loadParameters()
 
 /// @brief callback to get the race status from the subscription
 /// @param raceStatus custom message
-void SkidpadPlanner::raceStatusCallBack(common_msgs::msg::RaceStatus::SharedPtr raceStatus)
+void SkidpadPlanner::raceStatusCallBack(mmr_base::msg::RaceStatus::SharedPtr raceStatus)
 {
 	this->raceStatus.current_lap = raceStatus->current_lap;
 }
@@ -90,7 +90,7 @@ void SkidpadPlanner::odometryCallback(nav_msgs::msg::Odometry::SharedPtr odometr
 
 /// @brief callback to get cones from subscription
 /// @param slamCones cones from odometry  (x,y,z,red,green,blue)
-void SkidpadPlanner::slamConesCallback(visualization_msgs::msg::Marker::SharedPtr slamCones)
+void SkidpadPlanner::slamConesCallback(mmr_base::msg::Marker::SharedPtr slamCones)
 {
 	std::vector<geometry_msgs::msg::Point> slamConesL;
 	std::vector<geometry_msgs::msg::Point> slamConesR;
@@ -305,13 +305,13 @@ void SkidpadPlanner::generateCircleCenter(const std::vector<geometry_msgs::msg::
 void SkidpadPlanner::generateBorder(const std::vector<geometry_msgs::msg::Point> &slamCones,
 								    const bool &borderType)
 {
-	visualization_msgs::msg::Marker border;
+	mmr_base::msg::Marker border;
 	border.id = borderType;
 	border.ns = "border";
 	border.header.frame_id = "track";
 	border.header.stamp = this->nh->get_clock()->now();
-	border.type = visualization_msgs::msg::Marker::LINE_STRIP;
-	border.action = visualization_msgs::msg::Marker::ADD;
+	border.type = mmr_base::msg::Marker::LINE_STRIP;
+	border.action = mmr_base::msg::Marker::ADD;
 	border.scale.x = 0.1;
 	border.scale.y = 0.1;
 	border.scale.z = 0.1;
@@ -379,13 +379,13 @@ void SkidpadPlanner::generateBorder(const std::vector<geometry_msgs::msg::Point>
 /// @brief generates the centerline calling the other methods and publishes
 void SkidpadPlanner::generateCenterLine()
 {
-	visualization_msgs::msg::Marker centerLine;
+	mmr_base::msg::Marker centerLine;
 	centerLine.id = 0;
 	centerLine.ns = "centerLine";
 	centerLine.header.frame_id = "track";
 	centerLine.header.stamp = this->nh->get_clock()->now();
-	centerLine.type = visualization_msgs::msg::Marker::LINE_STRIP;
-	centerLine.action = visualization_msgs::msg::Marker::ADD;
+	centerLine.type = mmr_base::msg::Marker::LINE_STRIP;
+	centerLine.action = mmr_base::msg::Marker::ADD;
 	centerLine.scale.x = 0.1;
 	centerLine.scale.y = 0.1;
 	centerLine.scale.z = 0.1;
