@@ -99,7 +99,13 @@ void AutocrossPlanner::slamConesCallback(mmr_base::msg::Marker::SharedPtr slamCo
   // Publish partial
   else
   {
-    this->centerLinePub->publish(this->wayComputer->getPathCenterLine());
+    if (this->wayComputer->getPathCenterLine().points.size() > 0)
+    {
+      this->centerLinePub->publish(this->wayComputer->getPathCenterLine());
+    } else
+    {
+      RCLCPP_INFO(rclcpp::get_logger(""), "[local_planner] Empty centerline. Not publishing.");
+    }
   }
 
   Time::tock("computation"); // End measuring time
